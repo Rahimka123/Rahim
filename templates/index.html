@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Спутниковое приложение</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f3;
+            padding: 0;
+            margin: 0;
+        }
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        header img {
+            height: 40px;
+        }
+        main {
+            padding: 40px;
+            text-align: center;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        form {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            display: inline-block;
+            text-align: left;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Анализ спутниковых снимков</h1>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Логотип">
+    </header>
+
+    <main>
+        <h2>Здравствуйте, моего создателя зовут {{ creator }}</h2>
+
+        <form method="POST" enctype="multipart/form-data" action="/upload">
+            <label>Вставьте ссылку на изображение (URL):</label>
+            <input type="text" name="image_url" placeholder="https://example.com/image.jpg">
+
+            <label>Или выберите файл с устройства:</label>
+            <input type="file" name="image_file">
+
+            <input type="submit" value="Загрузить изображение">
+        </form>
+    </main>
+
+</body>
+</html>

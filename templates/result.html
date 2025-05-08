@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты анализа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f3;
+            padding: 0;
+            margin: 0;
+        }
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        header img {
+            height: 40px;
+        }
+        main {
+            padding: 30px;
+            text-align: center;
+        }
+        .image-container, .histogram-container {
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .risks {
+            text-align: left;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .risk-item {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .found {
+            color: red;
+        }
+        .not-found {
+            color: green;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Анализ спутниковых снимков</h1>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Логотип">
+    </header>
+
+    <main>
+        <h2>Результаты анализа изображения</h2>
+
+        <div class="image-container">
+            <h3>Загруженное изображение</h3>
+            <img src="{{ image_path }}" alt="Анализируемое изображение">
+        </div>
+
+        <div class="histogram-container">
+            <h3>Гистограмма яркости</h3>
+            <img src="data:image/png;base64,{{ histogram_data }}" alt="Гистограмма">
+        </div>
+
+        <div class="risks">
+            <h3>Оценка рисков</h3>
+            {% for risk, status in risk_report.items() %}
+                <div class="risk-item">
+                    {{ risk }} — 
+                    {% if status == 'найден' %}
+                        <span class="found">{{ status }}</span>
+                    {% else %}
+                        <span class="not-found">{{ status }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="/">Анализировать другое изображение</a>
+    </main>
+
+</body>
+</html>
